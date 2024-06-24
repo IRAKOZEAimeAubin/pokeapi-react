@@ -14,7 +14,10 @@ export const PokemonGrid = () => {
   })
 
   if (error) <span>Error!</span>
-  if (data)
+  if (data) {
+    const pokemonList = data.filter((pokemon) =>
+      pokemon.name.toLowerCase().includes(searchText.toLowerCase()),
+    )
     return (
       <>
         <p className='text-white text-center mb-2'>
@@ -32,10 +35,11 @@ export const PokemonGrid = () => {
           </div>
         </div>
         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4'>
-          {data.map((pokemon: PokemonFound) => {
+          {pokemonList.map((pokemon: PokemonFound) => {
             return <PokemonCard key={pokemon.name} name={pokemon.name} />
           })}
         </div>
       </>
     )
+  }
 }
